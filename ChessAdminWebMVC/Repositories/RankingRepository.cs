@@ -56,7 +56,7 @@ namespace ChessAdminWebMVC.Repositories
                 {
                     result = RankBeforeGame;
                 }
-                else 
+                else
                 {
                     //Gapped rankers: lower rank moves up 1
                     if (RankBeforeGame < OpponentRankBeforeGame)
@@ -65,6 +65,33 @@ namespace ChessAdminWebMVC.Repositories
                     }
                 }
             }
+            else
+            {
+                // ● If the lower - ranked player beats a higher-ranked player, the higher-ranked player will
+                //move one rank down, and the lower level player will move up by half the difference
+                //between their original ranks.
+                //For example, if players ranked 10th and 16th play and the lower - ranked player wins, the
+                //first player will move to rank 11th and the other player will move to rank(16 - 10) / 2 = 3
+                //placed up, to rank 13th
+                if (IsWinner)
+                {
+                    //Lower ranked winner moves up half the difference
+                    if (RankBeforeGame < OpponentRankBeforeGame)
+                    {
+                        result = (OpponentRankBeforeGame - RankBeforeGame) / 2;
+                    }
+
+                }
+                else
+                {
+                    //Higher ranked loser drops one place
+                    if (RankBeforeGame > OpponentRankBeforeGame)
+                    {
+                        result = RankBeforeGame +1;
+                    }
+                }
+            }
+
 
             return result;
         
