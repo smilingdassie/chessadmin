@@ -1,0 +1,90 @@
+﻿@model ChessAdminWebMVC.Game
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Game</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GameDateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GameDateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDraw)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDraw)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerOneCurrentRank)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayerOneCurrentRank)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerTwoCurrentRank)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayerTwoCurrentRank)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerOneRankAfterGame)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayerOneRankAfterGame)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerTwoRankAfterGame)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayerTwoRankAfterGame)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Member.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Member.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Member1.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Member1.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Member2.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Member2.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

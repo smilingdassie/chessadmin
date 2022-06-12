@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ChessAdminDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlayerOneID" Type="int" />
+          <Property Name="PlayerTwoID" Type="int" />
+          <Property Name="GameDateTime" Type="datetime" />
+          <Property Name="WinnerID" Type="int" />
+          <Property Name="IsDraw" Type="bit" />
+          <Property Name="PlayerOneCurrentRank" Type="int" />
+          <Property Name="PlayerTwoCurrentRank" Type="int" />
+          <Property Name="PlayerOneRankAfterGame" Type="int" />
+          <Property Name="PlayerTwoRankAfterGame" Type="int" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="400" />
+          <Property Name="Surname" Type="varchar" MaxLength="400" />
+          <Property Name="Email" Type="varchar" MaxLength="400" />
+          <Property Name="Birthday" Type="datetime" />
+          <Property Name="TotalGamesPlayed" Type="int" />
+          <Property Name="CurrentRank" Type="int" />
+        </EntityType>
+        <Association Name="FK_Game_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="PlayerOneID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_Member1">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="PlayerTwoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_Member2">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="WinnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ChessAdminDbModelStoreContainer">
+          <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Game_Member" Association="Self.FK_Game_Member">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_Member1" Association="Self.FK_Game_Member1">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_Member2" Association="Self.FK_Game_Member2">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ChessAdminDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlayerOneID" Type="Int32" />
+          <Property Name="PlayerTwoID" Type="Int32" />
+          <Property Name="GameDateTime" Type="DateTime" Precision="3" />
+          <Property Name="WinnerID" Type="Int32" />
+          <Property Name="IsDraw" Type="Boolean" />
+          <Property Name="PlayerOneCurrentRank" Type="Int32" />
+          <Property Name="PlayerTwoCurrentRank" Type="Int32" />
+          <Property Name="PlayerOneRankAfterGame" Type="Int32" />
+          <Property Name="PlayerTwoRankAfterGame" Type="Int32" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Game_Member" FromRole="Game" ToRole="Member" />
+          <NavigationProperty Name="Member1" Relationship="Self.FK_Game_Member1" FromRole="Game" ToRole="Member" />
+          <NavigationProperty Name="Member2" Relationship="Self.FK_Game_Member2" FromRole="Game" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="Surname" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="TotalGamesPlayed" Type="Int32" />
+          <Property Name="CurrentRank" Type="Int32" />
+          <NavigationProperty Name="Games" Relationship="Self.FK_Game_Member" FromRole="Member" ToRole="Game" />
+          <NavigationProperty Name="Games1" Relationship="Self.FK_Game_Member1" FromRole="Member" ToRole="Game" />
+          <NavigationProperty Name="Games2" Relationship="Self.FK_Game_Member2" FromRole="Member" ToRole="Game" />
+        </EntityType>
+        <Association Name="FK_Game_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="PlayerOneID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_Member1">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="PlayerTwoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_Member2">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="WinnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ChessAdminDbEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Games" EntityType="Self.Game" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <AssociationSet Name="FK_Game_Member" Association="Self.FK_Game_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_Member1" Association="Self.FK_Game_Member1">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_Member2" Association="Self.FK_Game_Member2">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ChessAdminDbModelStoreContainer" CdmEntityContainer="ChessAdminDbEntities1">
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="ChessAdminDbModel.Game">
+              <MappingFragment StoreEntitySet="Game">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PlayerOneID" ColumnName="PlayerOneID" />
+                <ScalarProperty Name="PlayerTwoID" ColumnName="PlayerTwoID" />
+                <ScalarProperty Name="GameDateTime" ColumnName="GameDateTime" />
+                <ScalarProperty Name="WinnerID" ColumnName="WinnerID" />
+                <ScalarProperty Name="IsDraw" ColumnName="IsDraw" />
+                <ScalarProperty Name="PlayerOneCurrentRank" ColumnName="PlayerOneCurrentRank" />
+                <ScalarProperty Name="PlayerTwoCurrentRank" ColumnName="PlayerTwoCurrentRank" />
+                <ScalarProperty Name="PlayerOneRankAfterGame" ColumnName="PlayerOneRankAfterGame" />
+                <ScalarProperty Name="PlayerTwoRankAfterGame" ColumnName="PlayerTwoRankAfterGame" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="ChessAdminDbModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="TotalGamesPlayed" ColumnName="TotalGamesPlayed" />
+                <ScalarProperty Name="CurrentRank" ColumnName="CurrentRank" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
