@@ -44,8 +44,27 @@ namespace ChessAdminWebMVC.Repositories
             {
                 result = RankBeforeGame;
             }
-
-
+            // ● If it’s a draw, the lower-ranked player can gain one position, unless the two players are
+            //adjacent.So if the players are ranked 10th and 11th, and it’s a draw, no change in
+            //ranking takes place.But if the players are ranked 10th and 15th, and it’s a draw, the
+            //player with rank 15 will move up to rank 14 and the player with rank 10 will stay the
+            //same
+            if (IsDraw)
+            {
+                //Adjacent rankers do not move
+                if (Math.Abs(OpponentRankBeforeGame - RankBeforeGame) == 1)
+                {
+                    result = RankBeforeGame;
+                }
+                else 
+                {
+                    //Gapped rankers: lower rank moves up 1
+                    if (RankBeforeGame < OpponentRankBeforeGame)
+                    {
+                        result = RankBeforeGame - 1;
+                    }
+                }
+            }
 
             return result;
         
