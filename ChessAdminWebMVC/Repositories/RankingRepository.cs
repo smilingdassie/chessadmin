@@ -35,9 +35,9 @@ namespace ChessAdminWebMVC.Repositories
             //Was this player the winner?
             bool IsWinner = (GameRepository.GetGame(GameID).WinnerID??0) == MemberID;
             //What was this player's rank before the game?
-            int RankBeforeGame = GameRepository.GetPreviousGameRank(GameID, MemberID);
+            int RankBeforeGame = GetPreviousGameRank(GameID, MemberID);
             //What was his opponent's rank before the game?
-            int OpponentRankBeforeGame = GameRepository.GetPreviousGameRank(GameID, OpponentID);
+            int OpponentRankBeforeGame = GetPreviousGameRank(GameID, OpponentID);
 
             // ● If the higher-ranked player wins against their opponent, neither of their ranks change
             if (!IsDraw && !IsWinner && (OpponentRankBeforeGame > RankBeforeGame))

@@ -30,8 +30,11 @@ namespace ChessAdminWebMVC.Repositories
         {
             using (var db = new ChessAdminDbEntities1())
             {
-                game.PlayerOneRankAfterGame = RankingRepository.RankMember(game.PlayerOneID, game.ID, game.PlayerTwoID);
-                game.PlayerTwoRankAfterGame = RankingRepository.RankMember(game.PlayerTwoID, game.ID, game.PlayerOneID);
+                db.Games.Add(game);
+                db.SaveChanges();
+
+                game.PlayerOneCurrentRank = RankingRepository.GetPreviousGameRank(game.ID, game.PlayerOneID);
+                game.PlayerTwoCurrentRank = RankingRepository.GetPreviousGameRank(game.ID, game.PlayerTwoID);
 
                 db.Entry(game).State = EntityState.Modified;
                 db.SaveChanges();
@@ -45,11 +48,6 @@ namespace ChessAdminWebMVC.Repositories
                 return db.Games.Find(GameID);
             }
 
-        }
-
-     
-
-
-
+        }     
     }
 }

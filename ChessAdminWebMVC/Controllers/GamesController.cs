@@ -55,8 +55,7 @@ namespace ChessAdminWebMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Games.Add(game);
-                db.SaveChanges();
+                GameRepository.SaveGameBeforeMatch(game);
                 return RedirectToAction("Index");
             }
 
