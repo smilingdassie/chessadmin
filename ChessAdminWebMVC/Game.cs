@@ -15,11 +15,11 @@ namespace ChessAdminWebMVC
     public partial class Game
     {
         public int ID { get; set; }
-        public Nullable<int> PlayerOneID { get; set; }
-        public Nullable<int> PlayerTwoID { get; set; }
-        public Nullable<System.DateTime> GameDateTime { get; set; }
+        public int PlayerOneID { get; set; }
+        public int PlayerTwoID { get; set; }
+        public System.DateTime GameDateTime { get; set; }
         public Nullable<int> WinnerID { get; set; }
-        public Nullable<bool> IsDraw { get; set; }
+        public bool IsDraw { get; set; }
         public Nullable<int> PlayerOneCurrentRank { get; set; }
         public Nullable<int> PlayerTwoCurrentRank { get; set; }
         public Nullable<int> PlayerOneRankAfterGame { get; set; }

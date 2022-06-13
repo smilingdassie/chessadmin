@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -7,6 +8,35 @@ namespace ChessAdminWebMVC.Repositories
 {
     public static class GameRepository
     {
+        // The application will also need a facility to enter a match between two players and then update
+        // their ranks accordingly.
+        /// <summary>
+        /// Save Game and apply ranking rules
+        /// </summary>
+        /// <param name="game"></param>
+        public static void SaveGameAfterMatch(Game game)
+        {
+            using (var db = new ChessAdminDbEntities1())
+            {
+                game.PlayerOneRankAfterGame = RankingRepository.RankMember(game.PlayerOneID, game.ID, game.PlayerTwoID);
+                game.PlayerTwoRankAfterGame = RankingRepository.RankMember(game.PlayerTwoID, game.ID, game.PlayerOneID);
+                                
+                db.Entry(game).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
+
+        public static void SaveGameBeforeMatch(Game game)
+        {
+            using (var db = new ChessAdminDbEntities1())
+            {
+                game.PlayerOneRankAfterGame = RankingRepository.RankMember(game.PlayerOneID, game.ID, game.PlayerTwoID);
+                game.PlayerTwoRankAfterGame = RankingRepository.RankMember(game.PlayerTwoID, game.ID, game.PlayerOneID);
+
+                db.Entry(game).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
 
         public static Game GetGame(int GameID)
         {
@@ -17,32 +47,7 @@ namespace ChessAdminWebMVC.Repositories
 
         }
 
-        /// <summary>
-        /// Get the Rank this Player scored in his previous game
-        /// </summary>
-        /// <param name="GameID"></param>
-        /// <param name="MemberID"></param>
-        /// <returns></returns>
-        public static int GetPreviousGameRank(int GameID, int MemberID)
-        {
-            using (var db = new ChessAdminDbEntities1())
-            {
-                var game = GetGame(GameID);
-                var games = db.Games.Where(x => x.GameDateTime < game.GameDateTime && (x.PlayerOneID == MemberID || x.PlayerTwoID == MemberID)).OrderByDescending(x => x.GameDateTime).Take(1);
-                if (games.Count() > 0)
-                    if (games.First().PlayerOneID == MemberID)
-                    {
-                        return games.First().PlayerOneRankAfterGame ?? 0;
-                    }
-                    else
-                    {
-                        return games.First().PlayerTwoRankAfterGame ?? 0;
-                    }
-                else
-                    return 0;
-
-            }
-        }
+     
 
 
 

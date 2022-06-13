@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ChessAdminWebMVC;
+using ChessAdminWebMVC.Repositories;
 
 namespace ChessAdminWebMVC.Controllers
 {
@@ -92,8 +93,7 @@ namespace ChessAdminWebMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(game).State = EntityState.Modified;
-                db.SaveChanges();
+                GameRepository.SaveGameAfterMatch(game);
                 return RedirectToAction("Index");
             }
             ViewBag.PlayerOneID = new SelectList(db.Members, "ID", "Name", game.PlayerOneID);

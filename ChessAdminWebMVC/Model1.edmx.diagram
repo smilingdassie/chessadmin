@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="f202cb49dec942f8b7c6201be45ffa92" Name="Diagram1">
-        <EntityTypeShape EntityType="ChessAdminDbModel.Game" Width="1.5" PointX="4.375" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ChessAdminDbModel.Member" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <AssociationConnector Association="ChessAdminDbModel.FK_Game_Member" ManuallyRouted="false" />
-        <AssociationConnector Association="ChessAdminDbModel.FK_Game_Member1" ManuallyRouted="false" />
-        <AssociationConnector Association="ChessAdminDbModel.FK_Game_Member2" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ChessAdminDbModel.Game" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="ChessAdminDbModel.Member" Width="1.5" PointX="0.75" PointY="1.25" />
+        <AssociationConnector Association="ChessAdminDbModel.FK_Game_Member" />
+        <AssociationConnector Association="ChessAdminDbModel.FK_Game_Member1" />
+        <AssociationConnector Association="ChessAdminDbModel.FK_Game_Member2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -4,17 +4,17 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ChessAdminDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ChessAdminDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Game">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PlayerOneID" Type="int" />
-          <Property Name="PlayerTwoID" Type="int" />
-          <Property Name="GameDateTime" Type="datetime" />
+          <Property Name="PlayerOneID" Type="int" Nullable="false" />
+          <Property Name="PlayerTwoID" Type="int" Nullable="false" />
+          <Property Name="GameDateTime" Type="datetime" Nullable="false" />
           <Property Name="WinnerID" Type="int" />
-          <Property Name="IsDraw" Type="bit" />
+          <Property Name="IsDraw" Type="bit" Nullable="false" />
           <Property Name="PlayerOneCurrentRank" Type="int" />
           <Property Name="PlayerTwoCurrentRank" Type="int" />
           <Property Name="PlayerOneRankAfterGame" Type="int" />
@@ -33,7 +33,7 @@
           <Property Name="CurrentRank" Type="int" />
         </EntityType>
         <Association Name="FK_Game_Member">
-          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
           <End Role="Game" Type="Self.Game" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Member">
@@ -45,7 +45,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Game_Member1">
-          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
           <End Role="Game" Type="Self.Game" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Member">
@@ -84,28 +84,43 @@
             <End Role="Game" EntitySet="Game" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ChessAdminDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ChessAdminDbEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Games" EntityType="ChessAdminDbModel.Game" />
+          <EntitySet Name="Members" EntityType="ChessAdminDbModel.Member" />
+          <AssociationSet Name="FK_Game_Member" Association="ChessAdminDbModel.FK_Game_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_Member1" Association="ChessAdminDbModel.FK_Game_Member1">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_Member2" Association="ChessAdminDbModel.FK_Game_Member2">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Game">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PlayerOneID" Type="Int32" />
-          <Property Name="PlayerTwoID" Type="Int32" />
-          <Property Name="GameDateTime" Type="DateTime" Precision="3" />
+          <Property Name="PlayerOneID" Type="Int32" Nullable="false" />
+          <Property Name="PlayerTwoID" Type="Int32" Nullable="false" />
+          <Property Name="GameDateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="WinnerID" Type="Int32" />
-          <Property Name="IsDraw" Type="Boolean" />
+          <Property Name="IsDraw" Type="Boolean" Nullable="false" />
           <Property Name="PlayerOneCurrentRank" Type="Int32" />
           <Property Name="PlayerTwoCurrentRank" Type="Int32" />
           <Property Name="PlayerOneRankAfterGame" Type="Int32" />
           <Property Name="PlayerTwoRankAfterGame" Type="Int32" />
-          <NavigationProperty Name="Member" Relationship="Self.FK_Game_Member" FromRole="Game" ToRole="Member" />
-          <NavigationProperty Name="Member1" Relationship="Self.FK_Game_Member1" FromRole="Game" ToRole="Member" />
-          <NavigationProperty Name="Member2" Relationship="Self.FK_Game_Member2" FromRole="Game" ToRole="Member" />
+          <NavigationProperty Name="Member" Relationship="ChessAdminDbModel.FK_Game_Member" FromRole="Game" ToRole="Member" />
+          <NavigationProperty Name="Member1" Relationship="ChessAdminDbModel.FK_Game_Member1" FromRole="Game" ToRole="Member" />
+          <NavigationProperty Name="Member2" Relationship="ChessAdminDbModel.FK_Game_Member2" FromRole="Game" ToRole="Member" />
         </EntityType>
         <EntityType Name="Member">
           <Key>
@@ -118,13 +133,13 @@
           <Property Name="Birthday" Type="DateTime" Precision="3" />
           <Property Name="TotalGamesPlayed" Type="Int32" />
           <Property Name="CurrentRank" Type="Int32" />
-          <NavigationProperty Name="Games" Relationship="Self.FK_Game_Member" FromRole="Member" ToRole="Game" />
-          <NavigationProperty Name="Games1" Relationship="Self.FK_Game_Member1" FromRole="Member" ToRole="Game" />
-          <NavigationProperty Name="Games2" Relationship="Self.FK_Game_Member2" FromRole="Member" ToRole="Game" />
+          <NavigationProperty Name="Games" Relationship="ChessAdminDbModel.FK_Game_Member" FromRole="Member" ToRole="Game" />
+          <NavigationProperty Name="Games1" Relationship="ChessAdminDbModel.FK_Game_Member1" FromRole="Member" ToRole="Game" />
+          <NavigationProperty Name="Games2" Relationship="ChessAdminDbModel.FK_Game_Member2" FromRole="Member" ToRole="Game" />
         </EntityType>
         <Association Name="FK_Game_Member">
-          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
-          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <End Type="ChessAdminDbModel.Member" Role="Member" Multiplicity="1" />
+          <End Type="ChessAdminDbModel.Game" Role="Game" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Member">
               <PropertyRef Name="ID" />
@@ -135,8 +150,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Game_Member1">
-          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
-          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <End Type="ChessAdminDbModel.Member" Role="Member" Multiplicity="1" />
+          <End Type="ChessAdminDbModel.Game" Role="Game" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Member">
               <PropertyRef Name="ID" />
@@ -147,8 +162,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Game_Member2">
-          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
-          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <End Type="ChessAdminDbModel.Member" Role="Member" Multiplicity="0..1" />
+          <End Type="ChessAdminDbModel.Game" Role="Game" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Member">
               <PropertyRef Name="ID" />
@@ -158,22 +173,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ChessAdminDbEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Games" EntityType="Self.Game" />
-          <EntitySet Name="Members" EntityType="Self.Member" />
-          <AssociationSet Name="FK_Game_Member" Association="Self.FK_Game_Member">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="Game" EntitySet="Games" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Game_Member1" Association="Self.FK_Game_Member1">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="Game" EntitySet="Games" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Game_Member2" Association="Self.FK_Game_Member2">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="Game" EntitySet="Games" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -183,29 +182,29 @@
           <EntitySetMapping Name="Games">
             <EntityTypeMapping TypeName="ChessAdminDbModel.Game">
               <MappingFragment StoreEntitySet="Game">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="PlayerOneID" ColumnName="PlayerOneID" />
-                <ScalarProperty Name="PlayerTwoID" ColumnName="PlayerTwoID" />
-                <ScalarProperty Name="GameDateTime" ColumnName="GameDateTime" />
-                <ScalarProperty Name="WinnerID" ColumnName="WinnerID" />
-                <ScalarProperty Name="IsDraw" ColumnName="IsDraw" />
-                <ScalarProperty Name="PlayerOneCurrentRank" ColumnName="PlayerOneCurrentRank" />
-                <ScalarProperty Name="PlayerTwoCurrentRank" ColumnName="PlayerTwoCurrentRank" />
-                <ScalarProperty Name="PlayerOneRankAfterGame" ColumnName="PlayerOneRankAfterGame" />
                 <ScalarProperty Name="PlayerTwoRankAfterGame" ColumnName="PlayerTwoRankAfterGame" />
+                <ScalarProperty Name="PlayerOneRankAfterGame" ColumnName="PlayerOneRankAfterGame" />
+                <ScalarProperty Name="PlayerTwoCurrentRank" ColumnName="PlayerTwoCurrentRank" />
+                <ScalarProperty Name="PlayerOneCurrentRank" ColumnName="PlayerOneCurrentRank" />
+                <ScalarProperty Name="IsDraw" ColumnName="IsDraw" />
+                <ScalarProperty Name="WinnerID" ColumnName="WinnerID" />
+                <ScalarProperty Name="GameDateTime" ColumnName="GameDateTime" />
+                <ScalarProperty Name="PlayerTwoID" ColumnName="PlayerTwoID" />
+                <ScalarProperty Name="PlayerOneID" ColumnName="PlayerOneID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Members">
             <EntityTypeMapping TypeName="ChessAdminDbModel.Member">
               <MappingFragment StoreEntitySet="Member">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="TotalGamesPlayed" ColumnName="TotalGamesPlayed" />
                 <ScalarProperty Name="CurrentRank" ColumnName="CurrentRank" />
+                <ScalarProperty Name="TotalGamesPlayed" ColumnName="TotalGamesPlayed" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
