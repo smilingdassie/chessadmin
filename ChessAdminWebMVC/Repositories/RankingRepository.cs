@@ -111,7 +111,7 @@ namespace ChessAdminWebMVC.Repositories
                 var game = GameRepository.GetGame(GameID);
                 if (game != null)
                 {
-                    var games = db.Games.Where(x => x.GameDateTime < game.GameDateTime && (x.PlayerOneID == MemberID || x.PlayerTwoID == MemberID)).OrderByDescending(x => x.GameDateTime).Take(1);
+                    var games = db.Games.Where(x => x.GameDate < game.GameDate && (x.PlayerOneID == MemberID || x.PlayerTwoID == MemberID)).OrderByDescending(x => x.GameDate).Take(1);
                     if (games.Count() > 0)
                         if (games.First().PlayerOneID == MemberID)
                         {
@@ -121,8 +121,7 @@ namespace ChessAdminWebMVC.Repositories
                         {
                             return games.First().PlayerTwoRankAfterGame ?? 0;
                         }
-                    else
-                        return 0;
+                   
                 }
                 return db.Members.Find(MemberID).CurrentRank ?? 0;
             }

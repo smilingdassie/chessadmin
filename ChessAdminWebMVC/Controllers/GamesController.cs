@@ -7,14 +7,23 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ChessAdminWebMVC;
+using ChessAdminWebMVC.Models;
 using ChessAdminWebMVC.Repositories;
 
 namespace ChessAdminWebMVC.Controllers
 {
     public class GamesController : Controller
     {
-        private ChessAdminDbEntities1 db = new ChessAdminDbEntities1();
+       // private ChessAdminDbEntities1 db = new ChessAdminDbEntities1();
+        private IChessAdminWebMVCContext db = new ChessAdminDbEntities1();
 
+        // add these constructors
+        public GamesController() { }
+
+        public GamesController(IChessAdminWebMVCContext context)
+        {
+            db = context;
+        }
         // GET: Games
         public ActionResult Index()
         {
@@ -51,7 +60,7 @@ namespace ChessAdminWebMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,PlayerOneID,PlayerTwoID,GameDateTime,WinnerID,IsDraw,PlayerOneCurrentRank,PlayerTwoCurrentRank,PlayerOneRankAfterGame,PlayerTwoRankAfterGame")] Game game)
+        public ActionResult Create([Bind(Include = "ID,PlayerOneID,PlayerTwoID,GameDate,WinnerID,IsDraw,PlayerOneCurrentRank,PlayerTwoCurrentRank,PlayerOneRankAfterGame,PlayerTwoRankAfterGame")] Game game)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +97,7 @@ namespace ChessAdminWebMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,PlayerOneID,PlayerTwoID,GameDateTime,WinnerID,IsDraw,PlayerOneCurrentRank,PlayerTwoCurrentRank,PlayerOneRankAfterGame,PlayerTwoRankAfterGame")] Game game)
+        public ActionResult Edit([Bind(Include = "ID,PlayerOneID,PlayerTwoID,GameDate,WinnerID,IsDraw,PlayerOneCurrentRank,PlayerTwoCurrentRank,PlayerOneRankAfterGame,PlayerTwoRankAfterGame")] Game game)
         {
             if (ModelState.IsValid)
             {

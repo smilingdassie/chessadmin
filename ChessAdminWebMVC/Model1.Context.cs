@@ -9,11 +9,12 @@
 
 namespace ChessAdminWebMVC
 {
+    using ChessAdminWebMVC.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ChessAdminDbEntities1 : DbContext
+    public partial class ChessAdminDbEntities1 : DbContext, IChessAdminWebMVCContext
     {
         public ChessAdminDbEntities1()
             : base("name=ChessAdminDbEntities1")
@@ -27,5 +28,14 @@ namespace ChessAdminWebMVC
     
         public virtual DbSet<Game> Games { get; set; }
         public virtual DbSet<Member> Members { get; set; }
+
+        public void MarkAsModified(Game item)
+        {
+            Entry(item).State = EntityState.Modified;
+        }
+        public void MarkAsModified(Member item)
+        {
+            Entry(item).State = EntityState.Modified;
+        }
     }
 }

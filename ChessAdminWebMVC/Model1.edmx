@@ -12,13 +12,14 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PlayerOneID" Type="int" Nullable="false" />
           <Property Name="PlayerTwoID" Type="int" Nullable="false" />
-          <Property Name="GameDateTime" Type="datetime" Nullable="false" />
+          <Property Name="GameDate" Type="date" Nullable="false" />
           <Property Name="WinnerID" Type="int" />
           <Property Name="IsDraw" Type="bit" Nullable="false" />
           <Property Name="PlayerOneCurrentRank" Type="int" />
           <Property Name="PlayerTwoCurrentRank" Type="int" />
           <Property Name="PlayerOneRankAfterGame" Type="int" />
           <Property Name="PlayerTwoRankAfterGame" Type="int" />
+          <Property Name="GameTime" Type="time" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Member">
           <Key>
@@ -111,13 +112,14 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PlayerOneID" Type="Int32" Nullable="false" />
           <Property Name="PlayerTwoID" Type="Int32" Nullable="false" />
-          <Property Name="GameDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GameDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="WinnerID" Type="Int32" />
           <Property Name="IsDraw" Type="Boolean" Nullable="false" />
           <Property Name="PlayerOneCurrentRank" Type="Int32" />
           <Property Name="PlayerTwoCurrentRank" Type="Int32" />
           <Property Name="PlayerOneRankAfterGame" Type="Int32" />
           <Property Name="PlayerTwoRankAfterGame" Type="Int32" />
+          <Property Name="GameTime" Type="Time" Nullable="false" Precision="7" />
           <NavigationProperty Name="Member" Relationship="ChessAdminDbModel.FK_Game_Member" FromRole="Game" ToRole="Member" />
           <NavigationProperty Name="Member1" Relationship="ChessAdminDbModel.FK_Game_Member1" FromRole="Game" ToRole="Member" />
           <NavigationProperty Name="Member2" Relationship="ChessAdminDbModel.FK_Game_Member2" FromRole="Game" ToRole="Member" />
@@ -173,7 +175,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -182,13 +184,14 @@
           <EntitySetMapping Name="Games">
             <EntityTypeMapping TypeName="ChessAdminDbModel.Game">
               <MappingFragment StoreEntitySet="Game">
+                <ScalarProperty Name="GameTime" ColumnName="GameTime" />
                 <ScalarProperty Name="PlayerTwoRankAfterGame" ColumnName="PlayerTwoRankAfterGame" />
                 <ScalarProperty Name="PlayerOneRankAfterGame" ColumnName="PlayerOneRankAfterGame" />
                 <ScalarProperty Name="PlayerTwoCurrentRank" ColumnName="PlayerTwoCurrentRank" />
                 <ScalarProperty Name="PlayerOneCurrentRank" ColumnName="PlayerOneCurrentRank" />
                 <ScalarProperty Name="IsDraw" ColumnName="IsDraw" />
                 <ScalarProperty Name="WinnerID" ColumnName="WinnerID" />
-                <ScalarProperty Name="GameDateTime" ColumnName="GameDateTime" />
+                <ScalarProperty Name="GameDate" ColumnName="GameDate" />
                 <ScalarProperty Name="PlayerTwoID" ColumnName="PlayerTwoID" />
                 <ScalarProperty Name="PlayerOneID" ColumnName="PlayerOneID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

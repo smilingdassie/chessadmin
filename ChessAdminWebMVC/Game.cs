@@ -17,13 +17,14 @@ namespace ChessAdminWebMVC
         public int ID { get; set; }
         public int PlayerOneID { get; set; }
         public int PlayerTwoID { get; set; }
-        public System.DateTime GameDateTime { get; set; }
+        public System.DateTime GameDate { get; set; }
         public Nullable<int> WinnerID { get; set; }
         public bool IsDraw { get; set; }
         public Nullable<int> PlayerOneCurrentRank { get; set; }
         public Nullable<int> PlayerTwoCurrentRank { get; set; }
         public Nullable<int> PlayerOneRankAfterGame { get; set; }
         public Nullable<int> PlayerTwoRankAfterGame { get; set; }
+        public System.TimeSpan GameTime { get; set; }
     
         public virtual Member Member { get; set; }
         public virtual Member Member1 { get; set; }
