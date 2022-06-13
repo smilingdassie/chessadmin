@@ -25,6 +25,15 @@ namespace ChessAdminWebMVC
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/plugins/dataTablesCSS").Include(
+                   "~/Content/DataTables/css/dataTables.bootstrap4.min.css"));
+            
+            bundles.Add(new ScriptBundle("~/plugins/dataTables").Include(
+            "~/Scripts/DataTables/jquery.dataTables.min.js"));
+
+            bundles.Add(new ScriptBundle("~/plugins/dataTables-bootstrap").Include(
+          "~/Scripts/DataTables/dataTables.bootstrap4.min.js"));
         }
     }
 }

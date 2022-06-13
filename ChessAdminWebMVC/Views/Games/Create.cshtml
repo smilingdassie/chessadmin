@@ -64,4 +64,32 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $('#PlayerOneID').change(function () {
+
+            $('#PlayerTwoID').empty();
+            $('#PlayerTwoID').append('<option value="0">--please select--</option>');
+
+            $.ajax({
+                type: 'POST',
+                url: '/Members/GetMembersExcept',
+                dataType: 'json',
+                data: { ID: $('#PlayerOneID').val() },
+                success: function (childs) {
+                    $.each(childs, function (i, child) {
+                        var options = '<option value="' + child.ID + '">' + child.Name + '</option>';
+                        $("#PlayerTwoID").append(options);
+                    });                    
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Members.' + ex);
+                }
+            });
+
+            return false;
+        })
+
+    </script>
+
 }

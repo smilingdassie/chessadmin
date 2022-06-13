@@ -15,6 +15,11 @@ namespace ChessAdminWebMVC.Controllers
     {
         private ChessAdminDbEntities1 db = new ChessAdminDbEntities1();
 
+
+        public JsonResult GetMembersExcept(int? id)
+        {
+            return Json(db.Members.Where(x=>x.ID!=id).ToList(), JsonRequestBehavior.AllowGet);
+        }
         // GET: Members
         public ActionResult Index()
         {

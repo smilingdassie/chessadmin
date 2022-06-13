@@ -13,7 +13,7 @@ namespace ChessAdminWebMVC.Repositories
             using (var db = new ChessAdminDbEntities1())
             {
                 //New players will, by default, be ranked last.
-                member.CurrentRank = db.Members.OrderBy(x => x.CurrentRank).First().CurrentRank + 1;
+                member.CurrentRank = db.Members.OrderByDescending(x => x.CurrentRank).First().CurrentRank + 1;
                 db.Members.Add(member);
                 db.SaveChanges();
                 return member;

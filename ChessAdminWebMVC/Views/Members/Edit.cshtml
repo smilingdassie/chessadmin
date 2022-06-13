@@ -52,7 +52,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TotalGamesPlayed, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TotalGamesPlayed, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.TotalGamesPlayed, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                 @Html.ValidationMessageFor(model => model.TotalGamesPlayed, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -60,7 +60,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CurrentRank, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CurrentRank, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CurrentRank, new { htmlAttributes = new { @class = "form-control", disabled="disabled" } })
                 @Html.ValidationMessageFor(model => model.CurrentRank, "", new { @class = "text-danger" })
             </div>
         </div>

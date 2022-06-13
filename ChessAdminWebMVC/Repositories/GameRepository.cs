@@ -18,6 +18,8 @@ namespace ChessAdminWebMVC.Repositories
         {
             using (var db = new ChessAdminDbEntities1())
             {
+                if (game.WinnerID == 0) { game.IsDraw = true; }
+
                 game.PlayerOneRankAfterGame = RankingRepository.RankMember(game.PlayerOneID, game.ID, game.PlayerTwoID);
                 game.PlayerTwoRankAfterGame = RankingRepository.RankMember(game.PlayerTwoID, game.ID, game.PlayerOneID);
                                 

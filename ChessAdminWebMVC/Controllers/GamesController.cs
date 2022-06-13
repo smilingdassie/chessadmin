@@ -86,9 +86,10 @@ namespace ChessAdminWebMVC.Controllers
             {
                 return HttpNotFound();
             }
+            //Limit Winner to the 2 players
             ViewBag.PlayerOneID = new SelectList(db.Members, "ID", "Name", game.PlayerOneID);
             ViewBag.PlayerTwoID = new SelectList(db.Members, "ID", "Name", game.PlayerTwoID);
-            ViewBag.WinnerID = new SelectList(db.Members, "ID", "Name", game.WinnerID);
+            ViewBag.WinnerID = new SelectList(db.Members.Where(x => x.ID == game.PlayerOneID || x.ID == game.PlayerTwoID), "ID", "Name", game.WinnerID);
             return View(game);
         }
 
