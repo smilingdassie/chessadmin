@@ -90,7 +90,7 @@ namespace ChessAdminWebMVC.Repositories
                             result = RankBeforeGame - HalfTheDifference;
                         }
                         // ● If the higher-ranked player wins against their opponent, neither of their ranks change
-                        // After discussion with business - if ranks are the same, winner rank does not change either
+                        // and Daniel says: if ranks are the same, winner rank does not change either
                         if (RankBeforeGame <= OpponentRankBeforeGame)
                         {
                             result = RankBeforeGame;
@@ -99,7 +99,7 @@ namespace ChessAdminWebMVC.Repositories
                     }
                     else
                     {
-                        //Higher ranked loser drops one place, (but lower ranked loser stays put)
+                        //Higher ranked loser drops one place, and Daniel says: (but lower ranked loser stays put)
                         if (RankBeforeGame < OpponentRankBeforeGame)
                         {
                             result = RankBeforeGame + 1;
