@@ -60,7 +60,7 @@ namespace ChessAdminWebMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,PlayerOneID,PlayerTwoID,GameDate,WinnerID,IsDraw,PlayerOneCurrentRank,PlayerTwoCurrentRank,PlayerOneRankAfterGame,PlayerTwoRankAfterGame")] Game game)
+        public ActionResult Create([Bind(Include = "ID,PlayerOneID,PlayerTwoID,GameDate,GameTime,WinnerID,IsDraw,PlayerOneCurrentRank,PlayerTwoCurrentRank,PlayerOneRankAfterGame,PlayerTwoRankAfterGame")] Game game)
         {
             if (ModelState.IsValid)
             {
@@ -98,11 +98,12 @@ namespace ChessAdminWebMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,PlayerOneID,PlayerTwoID,GameDate,WinnerID,IsDraw,PlayerOneCurrentRank,PlayerTwoCurrentRank,PlayerOneRankAfterGame,PlayerTwoRankAfterGame")] Game game)
+        public ActionResult Edit([Bind(Include = "ID,PlayerOneID,PlayerTwoID,GameDate,GameTime,WinnerID,IsDraw,PlayerOneCurrentRank,PlayerTwoCurrentRank,PlayerOneRankAfterGame,PlayerTwoRankAfterGame")] Game game)
         {
             if (ModelState.IsValid)
             {
                 GameRepository.SaveGameAfterMatch(game);
+                MemberRepository.UpdateStats(game);
                 return RedirectToAction("Index");
             }
             ViewBag.PlayerOneID = new SelectList(db.Members, "ID", "Name", game.PlayerOneID);

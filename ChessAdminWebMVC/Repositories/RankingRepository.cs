@@ -43,7 +43,7 @@ namespace ChessAdminWebMVC.Repositories
                 //What was his opponent's rank before the game?
                 int OpponentRankBeforeGame = GetPreviousGameRank(GameID, OpponentID);
 
-               
+
                 // ● If it’s a draw, the lower-ranked player can gain one position, unless the two players are
                 //adjacent.So if the players are ranked 10th and 11th, and it’s a draw, no change in
                 //ranking takes place.But if the players are ranked 10th and 15th, and it’s a draw, the
@@ -59,9 +59,13 @@ namespace ChessAdminWebMVC.Repositories
                     else
                     {
                         //Gapped rankers: lower rank moves up 1
-                        if (RankBeforeGame < OpponentRankBeforeGame)
+                        if (RankBeforeGame > OpponentRankBeforeGame)
                         {
                             result = RankBeforeGame - 1;
+                        }
+                        else
+                        {
+                            result = RankBeforeGame;
                         }
                     }
                 }
@@ -78,10 +82,16 @@ namespace ChessAdminWebMVC.Repositories
                         //Lower ranked winner moves up half the difference
                         if (RankBeforeGame > OpponentRankBeforeGame)
                         {
-                            result = (OpponentRankBeforeGame - RankBeforeGame) / 2;
+                            int HalfTheDifference = (RankBeforeGame - OpponentRankBeforeGame) / 2;
+                            if (HalfTheDifference == 0)
+                            {
+                                HalfTheDifference = 1;
+                            }
+                            result = RankBeforeGame - HalfTheDifference;
                         }
                         // ● If the higher-ranked player wins against their opponent, neither of their ranks change
-                        if (RankBeforeGame < OpponentRankBeforeGame)
+                        // After discussion with business - if ranks are the same, winner rank does not change either
+                        if (RankBeforeGame <= OpponentRankBeforeGame)
                         {
                             result = RankBeforeGame;
                         }
@@ -89,21 +99,25 @@ namespace ChessAdminWebMVC.Repositories
                     }
                     else
                     {
-                        //Higher ranked loser drops one place
+                        //Higher ranked loser drops one place, (but lower ranked loser stays put)
                         if (RankBeforeGame < OpponentRankBeforeGame)
                         {
                             result = RankBeforeGame + 1;
+                        }
+                        else
+                        {
+                            result = RankBeforeGame;
                         }
                     }
                 }
             }
             else
             {
-                result = MemberRepository.GetMember(MemberID).CurrentRank??0;
+                result = MemberRepository.GetMember(MemberID).CurrentRank ?? 0;
             }
 
             return result;
-        
+
         }
 
 
@@ -120,7 +134,7 @@ namespace ChessAdminWebMVC.Repositories
                 var game = GameRepository.GetGame(GameID);
                 if (game != null)
                 {
-                    var games = db.Games.Where(x => x.GameDate < game.GameDate && (x.PlayerOneID == MemberID || x.PlayerTwoID == MemberID)).OrderByDescending(x => x.GameDate).Take(1);
+                    var games = db.Games.Where(x => x.GameDateTime < game.GameDateTime && (x.PlayerOneID == MemberID || x.PlayerTwoID == MemberID)).OrderByDescending(x => x.GameDate).Take(1);
                     if (games.Count() > 0)
                         if (games.First().PlayerOneID == MemberID)
                         {
@@ -130,7 +144,7 @@ namespace ChessAdminWebMVC.Repositories
                         {
                             return games.First().PlayerTwoRankAfterGame ?? 0;
                         }
-                   
+
                 }
                 return db.Members.Find(MemberID).CurrentRank ?? 0;
             }

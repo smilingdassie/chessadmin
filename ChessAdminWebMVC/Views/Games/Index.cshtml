@@ -7,75 +7,101 @@
 <h2>Games</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New Game", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.GameDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsDraw)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PlayerOneCurrentRank)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PlayerTwoCurrentRank)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PlayerOneRankAfterGame)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PlayerTwoRankAfterGame)
-        </th>
-        <th>
-            Player 1
-        </th>
-        <th>
-            Player 2
-        </th>
-        <th>
-            Winner
-        </th>
-        <th></th>
-    </tr>
+<table id="example" class="table table-striped table-responsive table-bordered display nowrap" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.GameDateTime)
+            </th>
+            <th>
+                Player 1
+            </th>
+            <th>
+                Player 2
+            </th>
+            <th>
+                Winner
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDraw)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlayerOneCurrentRank)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlayerTwoCurrentRank)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlayerOneRankAfterGame)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlayerTwoRankAfterGame)
+            </th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.GameDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsDraw)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PlayerOneCurrentRank)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PlayerTwoCurrentRank)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PlayerOneRankAfterGame)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PlayerTwoRankAfterGame)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Member.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Member1.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Member2.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderByDescending(x => x.GameDateTime))
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(@item.GameDateTime.Value.ToString("yyyy/MM/dd HH:mm"), "Edit", new { id = item.ID })
+                    
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Member.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Member1.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Member2.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDraw)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlayerOneCurrentRank)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlayerTwoCurrentRank)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlayerOneRankAfterGame)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlayerTwoRankAfterGame)
+                </td>
+
+               
+            </tr>
+        }
+
+        </tbody>
+</table>
+@section Styles {
+    @Styles.Render("~/plugins/dataTablesCSS")
 }
 
-</table>
+<!--Load these page level functions-->
+@section Scripts {
+
+
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/dataTables-bootstrap")
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#example').DataTable({
+                pageLength: 20
+            });
+        })
+
+    </script>
+
+}

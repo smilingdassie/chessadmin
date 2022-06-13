@@ -25,6 +25,7 @@ namespace ChessAdminWebMVC
         public Nullable<int> PlayerOneRankAfterGame { get; set; }
         public Nullable<int> PlayerTwoRankAfterGame { get; set; }
         public System.TimeSpan GameTime { get; set; }
+        public Nullable<System.DateTime> GameDateTime { get; set; }
     
         public virtual Member Member { get; set; }
         public virtual Member Member1 { get; set; }

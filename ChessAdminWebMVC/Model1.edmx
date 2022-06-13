@@ -20,6 +20,7 @@
           <Property Name="PlayerOneRankAfterGame" Type="int" />
           <Property Name="PlayerTwoRankAfterGame" Type="int" />
           <Property Name="GameTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="GameDateTime" Type="datetime" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Member">
           <Key>
@@ -123,6 +124,7 @@
           <NavigationProperty Name="Member" Relationship="ChessAdminDbModel.FK_Game_Member" FromRole="Game" ToRole="Member" />
           <NavigationProperty Name="Member1" Relationship="ChessAdminDbModel.FK_Game_Member1" FromRole="Game" ToRole="Member" />
           <NavigationProperty Name="Member2" Relationship="ChessAdminDbModel.FK_Game_Member2" FromRole="Game" ToRole="Member" />
+          <Property Name="GameDateTime" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Member">
           <Key>
@@ -184,6 +186,7 @@
           <EntitySetMapping Name="Games">
             <EntityTypeMapping TypeName="ChessAdminDbModel.Game">
               <MappingFragment StoreEntitySet="Game">
+                <ScalarProperty Name="GameDateTime" ColumnName="GameDateTime" />
                 <ScalarProperty Name="GameTime" ColumnName="GameTime" />
                 <ScalarProperty Name="PlayerTwoRankAfterGame" ColumnName="PlayerTwoRankAfterGame" />
                 <ScalarProperty Name="PlayerOneRankAfterGame" ColumnName="PlayerOneRankAfterGame" />

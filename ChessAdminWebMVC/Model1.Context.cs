@@ -25,17 +25,18 @@ namespace ChessAdminWebMVC
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
+        void IChessAdminWebMVCContext.MarkAsModified(Game item)
+        {
+            
+        }
+
+        void IChessAdminWebMVCContext.MarkAsModified(Member item)
+        {
+            
+        }
+
         public virtual DbSet<Game> Games { get; set; }
         public virtual DbSet<Member> Members { get; set; }
-
-        public void MarkAsModified(Game item)
-        {
-            Entry(item).State = EntityState.Modified;
-        }
-        public void MarkAsModified(Member item)
-        {
-            Entry(item).State = EntityState.Modified;
-        }
     }
 }

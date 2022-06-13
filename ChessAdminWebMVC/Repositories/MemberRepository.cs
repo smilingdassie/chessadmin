@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -29,6 +30,34 @@ namespace ChessAdminWebMVC.Repositories
             {
                 return db.Members.Find(MemberID);
             }
+
+        }
+
+        public static void UpdateStats(Game game)
+        {
+            using (var db = new ChessAdminDbEntities1())
+            {
+                Member player1 = GetMember(game.PlayerOneID);
+                Member player2 = GetMember(game.PlayerTwoID);
+                                
+                List<Game> player1Games = db.Games.Where(x => x.PlayerOneID == player1.ID || x.PlayerTwoID == player1.ID).ToList();
+                List<Game> player2Games = db.Games.Where(x => x.PlayerTwoID == player2.ID || x.PlayerOneID == player2.ID).ToList();
+
+                player1.CurrentRank = game.PlayerOneRankAfterGame;
+                player2.CurrentRank = game.PlayerTwoRankAfterGame;
+
+                player1.TotalGamesPlayed = player1Games.Count();
+                player2.TotalGamesPlayed = player2Games.Count();
+
+
+                db.Entry(player1).State = EntityState.Modified;
+                db.SaveChanges();
+
+                db.Entry(player2).State = EntityState.Modified;
+                db.SaveChanges();
+
+            }
+
 
         }
     }
