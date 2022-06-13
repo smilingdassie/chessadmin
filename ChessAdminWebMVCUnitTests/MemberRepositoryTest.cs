@@ -16,7 +16,7 @@ namespace ChessAdminWebMVCUnitTests
             member.Surname = "Souchon";
             member.Email = "dsouchon@gmail.com";
             member.Birthday = DateTime.Parse("1 September 1973");
-            Assert.AreEqual(14, MemberRepository.CreateNewMember(member).CurrentRank);
+            Assert.AreEqual(20, MemberRepository.CreateNewMember(member).CurrentRank);
         }
     }
 }
