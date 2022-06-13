@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChessAdminWebMVC.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -21,8 +22,6 @@ namespace ChessAdminWebMVC.Repositories
             }
 
         }
-
-
 
         public static Member GetMember(int MemberID)
         {
@@ -60,5 +59,17 @@ namespace ChessAdminWebMVC.Repositories
 
 
         }
+
+        public static List<MemberViewModel> GetMemberViewModels(List<Member> members)
+        {
+            List<MemberViewModel> output = new List<MemberViewModel>();
+            
+            foreach (var member in members)
+            {
+                output.Add(new MemberViewModel(member));
+            }
+            return output;
+        }
+
     }
 }

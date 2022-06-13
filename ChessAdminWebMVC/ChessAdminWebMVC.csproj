@@ -208,6 +208,7 @@
     <Compile Include="Repositories\MemberRepository.cs" />
     <Compile Include="Repositories\RankingRepository.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\MemberViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

@@ -49,9 +49,9 @@ namespace ChessAdminWebMVC.Controllers
         // GET: Games/Create
         public ActionResult Create()
         {
-            ViewBag.PlayerOneID = new SelectList(db.Members, "ID", "Name");
-            ViewBag.PlayerTwoID = new SelectList(db.Members, "ID", "Name");
-            ViewBag.WinnerID = new SelectList(db.Members, "ID", "Name");
+            ViewBag.PlayerOneID = new SelectList(MemberRepository.GetMemberViewModels(db.Members.ToList()), "ID", "DisplayName");
+            ViewBag.PlayerTwoID = new SelectList(MemberRepository.GetMemberViewModels(db.Members.ToList()), "ID", "DisplayName");
+            ViewBag.WinnerID = new SelectList(MemberRepository.GetMemberViewModels(db.Members.ToList()), "ID", "DisplayName");
             return View();
         }
 
@@ -68,9 +68,10 @@ namespace ChessAdminWebMVC.Controllers
                 return RedirectToAction("Edit", new { ID = gameID});
             }
 
-            ViewBag.PlayerOneID = new SelectList(db.Members, "ID", "Name", game.PlayerOneID);
-            ViewBag.PlayerTwoID = new SelectList(db.Members, "ID", "Name", game.PlayerTwoID);
-            ViewBag.WinnerID = new SelectList(db.Members, "ID", "Name", game.WinnerID);
+            ViewBag.PlayerOneID = new SelectList(MemberRepository.GetMemberViewModels(db.Members.ToList()), "ID", "DisplayName", game.PlayerOneID);
+            ViewBag.PlayerTwoID = new SelectList(MemberRepository.GetMemberViewModels(db.Members.ToList()), "ID", "DisplayName", game.PlayerTwoID);
+            ViewBag.WinnerID = new SelectList(MemberRepository.GetMemberViewModels(db.Members.ToList()), "ID", "DisplayName", game.WinnerID);
+           
             return View(game);
         }
 

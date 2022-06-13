@@ -19,12 +19,13 @@ namespace ChessAdminWebMVC.Controllers
         public JsonResult GetMembersExcept(int? id)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            return Json(db.Members.Where(x=>x.ID!=id).ToList(), JsonRequestBehavior.AllowGet);
+
+            return Json(MemberRepository.GetMemberViewModels(db.Members.Where(x=>x.ID!=id).ToList()), JsonRequestBehavior.AllowGet);
         }
         // GET: Members
         public ActionResult Index()
         {
-            return View(db.Members.ToList());
+            return View(db.Members.OrderByDescending(x=>x.CurrentRank).ToList());
         }
 
         // GET: Members/Details/5

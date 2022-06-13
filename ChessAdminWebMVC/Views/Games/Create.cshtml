@@ -78,7 +78,7 @@
                 data: { ID: $('#PlayerOneID').val() },
                 success: function (childs) {
                     $.each(childs, function (i, child) {
-                        var options = '<option value="' + child.ID + '">' + child.Name + '</option>';
+                        var options = '<option value="' + child.ID + '">' + child.DisplayName  + '</option>';
                         $("#PlayerTwoID").append(options);
                     });                    
                 },
