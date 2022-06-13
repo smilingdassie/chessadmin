@@ -9,9 +9,10 @@
 
 namespace ChessAdminWebMVC
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Member
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +22,7 @@ namespace ChessAdminWebMVC
             this.Games1 = new HashSet<Game>();
             this.Games2 = new HashSet<Game>();
         }
-    
+
         public int ID { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -29,11 +30,14 @@ namespace ChessAdminWebMVC
         public Nullable<System.DateTime> Birthday { get; set; }
         public Nullable<int> TotalGamesPlayed { get; set; }
         public Nullable<int> CurrentRank { get; set; }
-    
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
         public virtual ICollection<Game> Games { get; set; }
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Game> Games1 { get; set; }
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Game> Games2 { get; set; }
     }

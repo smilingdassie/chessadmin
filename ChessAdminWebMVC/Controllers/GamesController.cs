@@ -64,8 +64,8 @@ namespace ChessAdminWebMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                GameRepository.SaveGameBeforeMatch(game);
-                return RedirectToAction("Index");
+                int gameID = GameRepository.SaveGameBeforeMatch(game);
+                return RedirectToAction("Edit", new { ID = gameID});
             }
 
             ViewBag.PlayerOneID = new SelectList(db.Members, "ID", "Name", game.PlayerOneID);

@@ -18,7 +18,9 @@ namespace ChessAdminWebMVC.Repositories
         {
             using (var db = new ChessAdminDbEntities1())
             {
-                if (game.WinnerID == 0) { game.IsDraw = true; }
+                if (game.WinnerID == null) { game.IsDraw = true; }
+                db.Entry(game).State = EntityState.Modified;
+                db.SaveChanges();
 
                 game.PlayerOneRankAfterGame = RankingRepository.RankMember(game.PlayerOneID, game.ID, game.PlayerTwoID);
                 game.PlayerTwoRankAfterGame = RankingRepository.RankMember(game.PlayerTwoID, game.ID, game.PlayerOneID);
@@ -28,7 +30,7 @@ namespace ChessAdminWebMVC.Repositories
             }
         }
 
-        public static void SaveGameBeforeMatch(Game game)
+        public static int SaveGameBeforeMatch(Game game)
         {
             using (var db = new ChessAdminDbEntities1())
             {
@@ -40,6 +42,8 @@ namespace ChessAdminWebMVC.Repositories
 
                 db.Entry(game).State = EntityState.Modified;
                 db.SaveChanges();
+
+                return game.ID;
             }
         }
 

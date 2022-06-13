@@ -43,11 +43,7 @@ namespace ChessAdminWebMVC.Repositories
                 //What was his opponent's rank before the game?
                 int OpponentRankBeforeGame = GetPreviousGameRank(GameID, OpponentID);
 
-                // ● If the higher-ranked player wins against their opponent, neither of their ranks change
-                if (!game.IsDraw && !IsWinner && (OpponentRankBeforeGame > RankBeforeGame))
-                {
-                    result = RankBeforeGame;
-                }
+               
                 // ● If it’s a draw, the lower-ranked player can gain one position, unless the two players are
                 //adjacent.So if the players are ranked 10th and 11th, and it’s a draw, no change in
                 //ranking takes place.But if the players are ranked 10th and 15th, and it’s a draw, the
@@ -80,16 +76,21 @@ namespace ChessAdminWebMVC.Repositories
                     if (IsWinner)
                     {
                         //Lower ranked winner moves up half the difference
-                        if (RankBeforeGame < OpponentRankBeforeGame)
+                        if (RankBeforeGame > OpponentRankBeforeGame)
                         {
                             result = (OpponentRankBeforeGame - RankBeforeGame) / 2;
+                        }
+                        // ● If the higher-ranked player wins against their opponent, neither of their ranks change
+                        if (RankBeforeGame < OpponentRankBeforeGame)
+                        {
+                            result = RankBeforeGame;
                         }
 
                     }
                     else
                     {
                         //Higher ranked loser drops one place
-                        if (RankBeforeGame > OpponentRankBeforeGame)
+                        if (RankBeforeGame < OpponentRankBeforeGame)
                         {
                             result = RankBeforeGame + 1;
                         }

@@ -18,6 +18,7 @@ namespace ChessAdminWebMVC.Controllers
 
         public JsonResult GetMembersExcept(int? id)
         {
+            db.Configuration.ProxyCreationEnabled = false;
             return Json(db.Members.Where(x=>x.ID!=id).ToList(), JsonRequestBehavior.AllowGet);
         }
         // GET: Members
