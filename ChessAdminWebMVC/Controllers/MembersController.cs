@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ChessAdminWebMVC;
+using ChessAdminWebMVC.Repositories;
 
 namespace ChessAdminWebMVC.Controllers
 {
@@ -50,8 +51,8 @@ namespace ChessAdminWebMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Members.Add(member);
-                db.SaveChanges();
+                //Rather use repository here to add additional required business logic: new members rank lowest by default
+                MemberRepository.CreateNewMember(member);
                 return RedirectToAction("Index");
             }
 
