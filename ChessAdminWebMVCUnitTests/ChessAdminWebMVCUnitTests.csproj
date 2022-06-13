@@ -57,10 +57,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeFile1.cs" />
-    <Compile Include="GameRepositoryTest.cs" />
+    <Compile Include="MemberRepositoryTest.cs" />
+    <Compile Include="TestChessAdminWebMVCContext.cs" />
+    <Compile Include="RankingRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestDbSet.cs" />
+    <Compile Include="TestMemberDbSet.cs" />
     <Compile Include="TestGameDbSet.cs" />
   </ItemGroup>
   <ItemGroup>

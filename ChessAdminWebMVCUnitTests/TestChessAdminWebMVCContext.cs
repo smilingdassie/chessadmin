@@ -5,9 +5,9 @@ using ChessAdminWebMVC.Models;
 
 namespace ChessAdminWebMVCUnitTests
 {
-    public class TestStoreAppContext : IChessAdminWebMVCContext
+    public class TestChessAdminWebMVCContext : IChessAdminWebMVCContext
     {
-        public TestStoreAppContext()
+        public TestChessAdminWebMVCContext()
         {
             this.Games = new TestGameDbSet();
         }

@@ -8,7 +8,7 @@ namespace ChessAdminWebMVC.Repositories
     public static class MemberRepository
     {
 
-        public static int CreateNewMember(Member member)
+        public static Member CreateNewMember(Member member)
         {
             using (var db = new ChessAdminDbEntities1())
             {
@@ -16,7 +16,7 @@ namespace ChessAdminWebMVC.Repositories
                 member.CurrentRank = db.Members.OrderBy(x => x.CurrentRank).First().CurrentRank + 1;
                 db.Members.Add(member);
                 db.SaveChanges();
-                return member.ID;
+                return member;
             }
 
         }

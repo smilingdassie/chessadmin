@@ -5,14 +5,16 @@ using ChessAdminWebMVC.Repositories;
 namespace ChessAdminWebMVCUnitTests
 {
     [TestClass]
-    public class GameRepositoryTest
-    {
+    public class RankingRepositoryTest
+    { 
         [TestMethod]
-        public void TestSaveGameBeforeMatch()
+        public void TestRankMember()
         {
-            int ID = 1;
+            int GameID = 1;
             int PlayerOneID = 1;
-            Assert.AreEqual(5, RankingRepository.GetPreviousGameRank(ID, PlayerOneID));
+            int OpponentID = 2;
+            Assert.AreEqual(1, RankingRepository.RankMember(PlayerOneID, GameID, OpponentID));
         }
+
     }
 }
